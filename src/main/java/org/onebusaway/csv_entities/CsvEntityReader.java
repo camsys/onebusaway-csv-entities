@@ -33,13 +33,9 @@ import org.onebusaway.csv_entities.exceptions.MissingRequiredEntityException;
 import org.onebusaway.csv_entities.schema.DefaultEntitySchemaFactory;
 import org.onebusaway.csv_entities.schema.EntitySchema;
 import org.onebusaway.csv_entities.schema.EntitySchemaFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class CsvEntityReader {
 
-  private static Logger _log = LoggerFactory.getLogger(CsvEntityReader.class);
-  
   public static final String KEY_CONTEXT = CsvEntityReader.class.getName()
       + ".context";
 
@@ -82,12 +78,10 @@ public class CsvEntityReader {
   }
 
   public void setInputLocation(File path) throws IOException {
-    if (path.isDirectory()) {
+    if (path.isDirectory())
       _source = new FileCsvInputSource(path);
-    } else {
-       _log.error("zip path=" + path);
+    else
       _source = new ZipFileCsvInputSource(new ZipFile(path));
-    }
   }
 
   public void setTokenizerStrategy(TokenizerStrategy tokenizerStrategy) {
@@ -164,7 +158,6 @@ public class CsvEntityReader {
         lineNumber++;
       }
     } catch (Exception ex) {
-      _log.error("readEntity issue:", ex);
       throw new CsvEntityIOException(entityClass, schema.getFilename(),
           lineNumber, ex);
     } finally {

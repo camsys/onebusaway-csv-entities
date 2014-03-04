@@ -24,16 +24,12 @@ import java.util.Map;
 import org.onebusaway.csv_entities.exceptions.IntrospectionException;
 import org.onebusaway.csv_entities.exceptions.MethodInvocationException;
 import org.onebusaway.csv_entities.exceptions.NoSuchPropertyException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class BeanWrapperFactory {
 
-  private static Logger _log = LoggerFactory.getLogger(BeanWrapperFactory.class);
   private static Map<Class<?>, BeanClassWrapperImpl> _classWrappers = new HashMap<Class<?>, BeanClassWrapperImpl>();
 
   public static BeanWrapper wrap(Object object) {
-    //_log.error("object=" + object);
     Class<? extends Object> c = object.getClass();
     BeanClassWrapperImpl classWrapper = _classWrappers.get(c);
     if (classWrapper == null) {
